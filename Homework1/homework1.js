@@ -45,6 +45,8 @@ function min(a, b)
 
 // Resize viewport when window size changes
 window.addEventListener('resize', () => {
+    canvas.width = min(window.innerWidth, window.innerHeight);
+    canvas.height = canvas.width;
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.scissor(0,0, canvas.width/2, canvas.height/2);
     gl.clearColor(0,0,1,1.0);
