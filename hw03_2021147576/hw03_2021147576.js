@@ -348,19 +348,17 @@ function solveEquation(x1, y1, r, x2, y2, x3, y3) {
     // 교점 시각화
     shader.setVec4("u_color", [0.0, 1.0, 0.0, 1.0]); // 교점은 초록색 점으로
     for (let p of points) {
-        drawPoint(p[0], p[1], 10); // 원하는 크기로 점 찍기
+        drawPoint(p[0], p[1]); // 원하는 크기로 점 찍기
     }
 }
 
-function drawPoint(x, y, size = 5) {
+function drawPoint(x, y) {
     const pointBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, pointBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([x, y]), gl.STATIC_DRAW);
 
     gl.bindVertexArray(vao);
     shader.setAttribPointer('a_position', 2, gl.FLOAT, false, 0, 0);
-    gl.enable(gl.VERTEX_PROGRAM_POINT_SIZE); // 꼭 있어야 점 크기 설정됨
-    gl.vertexAttrib1f(gl.getAttribLocation(shader.program, 'a_pointSize'), size); // 셰이더에서 받아야 함
-
+    gl.enable(gl.VERTEX_PROGRAM_POINT_SIZE);
     gl.drawArrays(gl.POINTS, 0, 1);
 }
