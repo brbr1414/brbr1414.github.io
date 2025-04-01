@@ -165,7 +165,7 @@ function setupMouseEvents() {
 
             if (lines.length == 1) {
                 updateText(textOverlay, "Circle: center (" + lines[0][0].toFixed(2) + ", " + lines[0][1].toFixed(2) +
-                    ") radius =" + (Math.sqrt(Math.pow(lines[0][2] - lines[0][0], 2) + Math.pow(lines[0][3] - lines[0][1], 2))).toFixed(2));
+                    ") radius = " + (Math.sqrt(Math.pow(lines[0][2] - lines[0][0], 2) + Math.pow(lines[0][3] - lines[0][1], 2))).toFixed(2));
             }
             else { // lines.length == 2
                 updateText(textOverlay2, "Line segment: (" + lines[1][0].toFixed(2) + ", " + lines[1][1].toFixed(2) +
@@ -282,58 +282,45 @@ function drawCircle(x, y, r, p) {
 }
 
 function solveEquation(x1, y1, r, x2, y2, x3, y3) {
-    // Circle: center (x1, y1), radius r
-    // Line segment: from (x2, y2) to (x3, y3)
-    if (x2 > x3) {
-        [x2, x3] = [x3, x2];  // swap x
-    }
-    if (y2 > y3) {
-        [y2, y3] = [y3, y2];  // swap y
-    }
-
     let dx = x3 - x2;
     let dy = y3 - y2;
-
     let fx = x2 - x1;
     let fy = y2 - y1;
 
     let a = dx * dx + dy * dy;
     let b = 2 * (fx * dx + fy * dy);
-    let c = (fx * fx + fy * fy) - r * r;
+    let c = fx * fx + fy * fy - r * r;
 
     let discriminant = b * b - 4 * a * c;
-
-    let intersectionNum = 0;
     let points = [];
+
     if (discriminant < 0) {
-        // No intersection
-    } else if (discriminant == 0) { //D == 0
-        intersectionNum = 1;
-        discriminant = Math.sqrt(discriminant);
-        points.push([x3, y3]);
-    }
-    else {
-        discriminant = Math.sqrt(discriminant);
+        updateText(textOverlay3, "No intersection");
+    } else if (discriminant === 0) {
+        let t = -b / (2 * a);
+        if (t >= 0 && t <= 1) {
+            let ix = x2 + t * dx;
+            let iy = y2 + t * dy;
+            points.push([ix, iy]);
+        }
+    } else {
+        let sqrtD = Math.sqrt(discriminant);
+        let t1 = (-b - sqrtD) / (2 * a);
+        let t2 = (-b + sqrtD) / (2 * a);
 
-        let t1 = (-b - discriminant) / (2 * a);
-        let t2 = (-b + discriminant) / (2 * a);
-        let ix1 = x2 + t1 * dx;
-        let iy1 = y2 + t1 * dy;
-        let ix2 = x2 + t2 * dx;
-        let iy2 = y2 + t2 * dy;
-
-
-        if (ix1 >= x2 && ix1 <= x3) {
+        if (t1 >= 0 && t1 <= 1) {
+            let ix1 = x2 + t1 * dx;
+            let iy1 = y2 + t1 * dy;
             points.push([ix1, iy1]);
-            intersectionNum += 1;
         }
-
-        if (ix2 >= x2 && ix2 <= x3) {
-
+        if (t2 >= 0 && t2 <= 1) {
+            let ix2 = x2 + t2 * dx;
+            let iy2 = y2 + t2 * dy;
             points.push([ix2, iy2]);
-            intersectionNum += 1;
         }
     }
+
+    const intersectionNum = points.length;
 
     if (intersectionNum == 0) {
         updateText(textOverlay3, "No intersection");
@@ -345,10 +332,9 @@ function solveEquation(x1, y1, r, x2, y2, x3, y3) {
         updateText(textOverlay3, "Intersection Points: 2 Point 1: (" + points[0][0].toFixed(2) + "," + points[0][1].toFixed(2) + ") Point 2: (" + points[1][0].toFixed(2) + "," + points[1][1].toFixed(2) + ")");
     }
 
-    // 교점 시각화
-    shader.setVec4("u_color", [0.0, 1.0, 0.0, 1.0]); // 교점은 초록색 점으로
+    shader.setVec4("u_color", [0.0, 1.0, 0.0, 1.0]);
     for (let p of points) {
-        drawPoint(p[0], p[1]); // 원하는 크기로 점 찍기
+        drawPoint(p[0], p[1]);
     }
 }
 
@@ -362,3 +348,4 @@ function drawPoint(x, y) {
     gl.enable(gl.VERTEX_PROGRAM_POINT_SIZE);
     gl.drawArrays(gl.POINTS, 0, 1);
 }
+
