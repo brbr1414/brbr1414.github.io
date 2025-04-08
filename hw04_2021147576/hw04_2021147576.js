@@ -72,10 +72,10 @@ function initWebGL() {
 
 function setupSunBuffers() {
     const cubeVertices = new Float32Array([
-        -0.5,  0.5,  // 좌상단
-        -0.5, -0.5,  // 좌하단
-         0.5, -0.5,  // 우하단
-         0.5,  0.5   // 우상단
+        -0.5,  0.5, 0.0,  // 좌상단
+        -0.5, -0.5, 0.0,// 좌하단
+         0.5, -0.5, 0.0, // 우하단
+         0.5,  0.5,  0.0 // 우상단
     ]);
 
     const indices = new Uint16Array([
@@ -97,7 +97,7 @@ function setupSunBuffers() {
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, cubeVertices, gl.STATIC_DRAW);
-    shader.setAttribPointer("a_position", 2, gl.FLOAT, false, 0, 0);
+    shader.setAttribPointer("a_position", 3, gl.FLOAT, false, 0, 0);
 
     // VBO for color
     const colorBuffer = gl.createBuffer();
@@ -115,10 +115,10 @@ function setupSunBuffers() {
 
 function setupEarthBuffers() {
     const cubeVertices = new Float32Array([
-        -0.5,  0.5,  // 좌상단
-        -0.5, -0.5,  // 좌하단
-         0.5, -0.5,  // 우하단
-         0.5,  0.5   // 우상단
+        -0.5,  0.5, 0.0,  // 좌상단
+        -0.5, -0.5, 0.0,// 좌하단
+         0.5, -0.5, 0.0, // 우하단
+         0.5,  0.5,  0.0 // 우상단
     ]);
 
     const indices = new Uint16Array([
@@ -140,7 +140,7 @@ function setupEarthBuffers() {
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, cubeVertices, gl.STATIC_DRAW);
-    shader.setAttribPointer("a_position", 2, gl.FLOAT, false, 0, 0);
+    shader.setAttribPointer("a_position", 3, gl.FLOAT, false, 0, 0);
 
     // VBO for color
     const colorBuffer = gl.createBuffer();
@@ -158,10 +158,10 @@ function setupEarthBuffers() {
 
 function setupMoonBuffers() {
     const cubeVertices = new Float32Array([
-        -0.5,  0.5,  // 좌상단
-        -0.5, -0.5,  // 좌하단
-         0.5, -0.5,  // 우하단
-         0.5,  0.5   // 우상단
+        -0.5,  0.5, 0.0,  // 좌상단
+        -0.5, -0.5, 0.0,// 좌하단
+         0.5, -0.5, 0.0, // 우하단
+         0.5,  0.5,  0.0 // 우상단
     ]);
 
     const indices = new Uint16Array([
@@ -183,7 +183,7 @@ function setupMoonBuffers() {
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, cubeVertices, gl.STATIC_DRAW);
-    shader.setAttribPointer("a_position", 2, gl.FLOAT, false, 0, 0);
+    shader.setAttribPointer("a_position", 3, gl.FLOAT, false, 0, 0);
 
     // VBO for color
     const colorBuffer = gl.createBuffer();
