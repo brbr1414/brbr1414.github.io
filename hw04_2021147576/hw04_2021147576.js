@@ -230,11 +230,11 @@ function animate(currentTime) {
     const deltaTime = (currentTime - lastTime) / 1000;
     lastTime = currentTime;
 
-    sunRotation += deltaTime * Math.PI / 4;     // 45°/s
-    earthRotation += deltaTime * Math.PI;       // 180°/s
-    earthRevolution += deltaTime * Math.PI / 6; // 30°/s
-    moonRotation += deltaTime * Math.PI;        // 180°/s
-    moonRevolution += deltaTime * 2 * Math.PI;  // 360°/s
+    sunRotation += deltaTime * Math.PI / 4;     
+    earthRotation += deltaTime * Math.PI;       
+    earthRevolution += deltaTime * Math.PI / 6; 
+    moonRotation += deltaTime * Math.PI;        
+    moonRevolution += deltaTime * 2 * Math.PI;  
 
     // Sun: 자전 + 스케일
     sunMatrix = mat4.create();
@@ -251,12 +251,12 @@ function animate(currentTime) {
     mat4.rotate(earthMatrix, earthMatrix, earthRotation, [0, 0, 1]);
     mat4.scale(earthMatrix, earthMatrix, [0.1, 0.1, 1]);  // Earth 크기
 
-    // Moon은 earthOrbitMatrix만 기준으로 해야 함!
+    // Moon은 earthOrbitMatrix만 기준으로 
     const moonLocal = mat4.create();
     mat4.rotate(moonLocal, moonLocal, moonRevolution, [0, 0, 1]); // 공전
-    mat4.translate(moonLocal, moonLocal, [0.2, 0, 0]);            // 공전 거리 (보정)
+    mat4.translate(moonLocal, moonLocal, [0.2, 0, 0]);            // 공전 거리 
     mat4.rotate(moonLocal, moonLocal, moonRotation, [0, 0, 1]);   // 자전
-    mat4.scale(moonLocal, moonLocal, [0.05, 0.05, 1]);              // Moon 크기 (보정)
+    mat4.scale(moonLocal, moonLocal, [0.05, 0.05, 1]);              // Moon 크기 
 
     // 지구 공전 위치 기준으로 Moon 위치 정함
     moonMatrix = mat4.create();
