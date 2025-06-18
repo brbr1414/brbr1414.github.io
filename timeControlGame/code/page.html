@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>시간 조작 게임</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #controls {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="controls">
+    <h3>조작 방법</h3>
+    <p>WASD: 이동</p>
+    <p>Space: 점프</p>
+    <p>마우스: 시점 조작</p>
+    <h3>시간 제어</h3>
+    <p>Q: 시간 흐름 변경</p>
+    <p>T: 시간 가속</p>
+    <p>F: 시간 감속</p>
+    <p>P: 시간 정지/재개</p>
+    <p>R: 게임 다시 시작</p>
+    <p>G: 총 발사</p>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
